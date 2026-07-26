@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f4f7fa;
+  --bg-deep: #e2e8f0;
+  --ink: #0c1222;
+  --ink-muted: #4a5568;
+  --accent: #0f766e;
+  --accent-bright: #14b8a6;
+  --surface: rgba(255, 255, 255, 0.62);
+  --line: rgba(12, 18, 34, 0.12);
+  --glow: rgba(20, 184, 166, 0.2);
+  --hero-veil: linear-gradient(
+    105deg,
+    rgba(244, 247, 250, 0.96) 0%,
+    rgba(244, 247, 250, 0.78) 42%,
+    rgba(244, 247, 250, 0.12) 72%,
+    transparent 100%
+  );
+  --page-gradient: linear-gradient(165deg, #f4f7fa 0%, #e2e8f0 55%, #cbd5e1 100%);
+}
+
+html.dark {
+  --bg: #050816;
+  --bg-deep: #0a0f2c;
+  --ink: #ffffff;
+  --ink-muted: #d4dce8;
+  --accent: #b794ff;
+  --accent-bright: #cbb2ff;
+  --surface: rgba(30, 41, 72, 0.75);
+  --line: rgba(226, 232, 240, 0.28);
+  --glow: rgba(183, 148, 255, 0.35);
+  --hero-veil: linear-gradient(
+    105deg,
+    rgba(5, 8, 22, 0.98) 0%,
+    rgba(5, 8, 22, 0.92) 38%,
+    rgba(5, 8, 22, 0.55) 58%,
+    rgba(5, 8, 22, 0.15) 78%,
+    transparent 100%
+  );
+  --page-gradient: linear-gradient(
+    160deg,
+    #050816 0%,
+    #0b1130 45%,
+    #151030 75%,
+    #1b0b2e 100%
+  );
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-deep: var(--bg-deep);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --font-display: var(--font-syne);
+  --font-sans: var(--font-dm-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 12% -8%, var(--glow), transparent 55%),
+    radial-gradient(ellipse 55% 40% at 90% 18%, var(--glow), transparent 50%),
+    var(--page-gradient);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html.dark body::after {
+  opacity: 0.06;
+}
+
+.section-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.display {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+
+.hero-name {
+  white-space: nowrap;
+  font-size: clamp(1.35rem, 4.6vw, 4.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.hero-veil {
+  background: var(--hero-veil);
+}
