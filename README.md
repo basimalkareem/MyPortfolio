@@ -108,7 +108,7 @@ Tailwind maps these via `@theme inline` (e.g. `text-ink`, `bg-accent`).
 |--|--------|------|
 | Mood | Cool mist, teal accent | Space / tech, purple accent |
 | 3D | Glass orb, city environment | Stars, neon workstation, purple orb |
-| Default | — | **Dark** on first visit |
+| Default | **Light** on first visit | Optional via toggle |
 
 ### Theme implementation
 
