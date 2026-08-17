@@ -1,6 +1,7 @@
 export const personal = {
   name: "S. Basim Al Kareem",
   shortName: "Basim",
+  brand: "Basim al kareem",
   firstName: "Basim",
   title: "Frontend Developer",
   email: "basim230495@gmail.com",
@@ -40,9 +41,9 @@ export const stats = [
 
 export const floatingTechs = [
   { label: "React", x: "82%", y: "8%" },
-  { label: "TypeScript", x: "-8%", y: "22%" },
+  { label: "TypeScript", x: "-18%", y: "38%" },
   { label: "Next.js", x: "88%", y: "58%" },
-  { label: "Angular", x: "-12%", y: "68%" },
+  { label: "Angular", x: "-12%", y: "72%" },
 ];
 
 export const skillGroups = [

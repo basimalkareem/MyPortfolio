@@ -5,7 +5,11 @@ export default function TechIcon({
   name: string;
   className?: string;
 }) {
-  const common = { className, viewBox: "0 0 24 24", "aria-hidden": true as const };
+  const common = {
+    className: `${className} shrink-0 overflow-hidden`,
+    viewBox: "0 0 24 24",
+    "aria-hidden": true as const,
+  };
 
   switch (name) {
     case "React":

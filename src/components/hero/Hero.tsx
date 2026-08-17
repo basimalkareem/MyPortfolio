@@ -68,7 +68,7 @@ export default function Hero() {
           {floatingTechs.map((tech) => (
             <span
               key={tech.label}
-              className="pill absolute z-10 flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-ink shadow-lg"
+              className="absolute z-10 flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold text-ink shadow-lg"
               style={{ left: tech.x, top: tech.y }}
             >
               <TechIcon name={tech.label} />
