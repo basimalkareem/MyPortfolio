@@ -23,8 +23,7 @@ export default function Navbar() {
     >
       <div className="section-shell flex h-16 items-center justify-between">
         <a href="#top" className="text-lg font-bold tracking-tight text-ink">
-          {personal.shortName}
-          <span className="text-accent">.</span>
+            {personal.brand}
         </a>
         <nav className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (

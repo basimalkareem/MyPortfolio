@@ -1,6 +1,7 @@
 export const personal = {
   name: "S. Basim Al Kareem",
   shortName: "Basim",
+  brand: "Basim al kareem",
   firstName: "Basim",
   title: "Frontend Developer",
   email: "basim230495@gmail.com",
