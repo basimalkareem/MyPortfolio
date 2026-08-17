@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans, Syne } from "next/font/google";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { cookies } from "next/headers";
+import { Outfit } from "next/font/google";
+import { ThemeProvider, type Theme } from "@/components/theme/ThemeProvider";
 import "./globals.css";
 
-const syne = Syne({
-  variable: "--font-syne",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const siteUrl =
@@ -58,29 +53,24 @@ export const metadata: Metadata = {
   },
 };
 
-const themeInitScript = `
-(() => {
-  try {
-    const stored = localStorage.getItem('theme');
-    const theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    document.documentElement.style.colorScheme = theme;
-  } catch (_) {}
-})();
-`;
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const stored = cookieStore.get("theme")?.value;
+  const theme: Theme = stored === "light" || stored === "dark" ? stored : "dark";
+
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable} h-full`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+    <html
+      lang="en"
+      className={`${outfit.variable} ${theme === "dark" ? "dark" : ""} h-full`}
+      style={{ colorScheme: theme }}
+      suppressHydrationWarning
+    >
       <body className="min-h-full antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
       </body>
     </html>
   );
