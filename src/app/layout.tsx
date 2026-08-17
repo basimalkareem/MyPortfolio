@@ -62,7 +62,7 @@ const themeInitScript = `
 (() => {
   try {
     const stored = localStorage.getItem('theme');
-    const theme = stored === 'light' || stored === 'dark' ? stored : 'light';
+    const theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
     document.documentElement.classList.toggle('dark', theme === 'dark');
     document.documentElement.style.colorScheme = theme;
   } catch (_) {}
