@@ -1,37 +1,27 @@
 import { skillGroups } from "@/content/portfolio";
 import Reveal from "@/components/ui/Reveal";
-import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function Skills() {
   return (
     <section id="skills" className="relative z-1 py-24 sm:py-28">
       <div className="section-shell">
         <Reveal>
-          <SectionHeading
-            eyebrow="Skills"
-            title="Tools I use to ship production frontend"
-            description="From component architecture and payments to Core Web Vitals and accessibility."
-          />
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+            Skills
+          </p>
+          <h2 className="display mt-3 text-3xl font-extrabold tracking-tight text-ink sm:text-5xl">
+            Tools I use every day
+          </h2>
         </Reveal>
-
-        <div className="grid gap-10 sm:grid-cols-2">
-          {skillGroups.map((group, index) => (
-            <Reveal key={group.title} delay={index * 0.06}>
-              <div>
-                <h3 className="display text-xl font-bold text-ink">
-                  {group.title}
-                </h3>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="border-b border-line px-1 py-1 text-sm text-ink-muted transition-colors hover:border-accent hover:text-ink"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {skillGroups.map((group, i) => (
+            <Reveal key={group.title} delay={i * 0.05}>
+              <article className="card p-6">
+                <h3 className="text-lg font-bold text-ink">{group.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+                  {group.items.join(" · ")}
+                </p>
+              </article>
             </Reveal>
           ))}
         </div>

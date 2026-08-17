@@ -25,17 +25,25 @@ function applyTheme(theme: Theme) {
   root.classList.toggle("dark", theme === "dark");
   root.style.colorScheme = theme;
   localStorage.setItem("theme", theme);
+  document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax`;
 }
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+export function ThemeProvider({
+  children,
+  initialTheme = "dark",
+}: {
+  children: ReactNode;
+  initialTheme?: Theme;
+}) {
+  const [theme, setThemeState] = useState<Theme>(initialTheme);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme") as Theme | null;
-    const preferred = stored === "light" || stored === "dark" ? stored : "dark";
+    const preferred =
+      stored === "light" || stored === "dark" ? stored : initialTheme;
     setThemeState(preferred);
     applyTheme(preferred);
-  }, []);
+  }, [initialTheme]);
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);

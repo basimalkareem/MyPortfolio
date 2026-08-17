@@ -1,63 +1,88 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { personal } from "@/content/portfolio";
-
-const HeroScene = dynamic(() => import("@/components/3d/HeroScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-ink/5" />
-  ),
-});
+import { floatingTechs, personal } from "@/content/portfolio";
+import TechIcon from "@/components/hero/TechIcon";
+import Typewriter from "@/components/hero/Typewriter";
 
 export default function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section
-      id="top"
-      className="relative isolate min-h-[100svh] overflow-hidden"
-    >
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-95">
-        {!reduce ? <HeroScene /> : null}
-      </div>
-
-      <div className="hero-veil absolute inset-0 z-[1]" />
-
-      <div className="section-shell relative z-[2] flex min-h-[100svh] flex-col justify-center pb-16 pt-28">
+    <section id="top" className="relative isolate min-h-[100svh] overflow-hidden">
+      <div className="section-shell grid min-h-[100svh] items-center gap-12 pb-16 pt-24 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 24 }}
+          initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-4xl"
+          transition={{ duration: 0.6 }}
         >
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.24em] text-accent">
-            {personal.title}
-          </p>
-          <h1 className="display hero-name font-bold text-ink drop-shadow-sm">
-            {personal.name}
+          {personal.available ? (
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Available for hire
+            </p>
+          ) : null}
+          <h1 className="display text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-6xl">
+            Hi, I&apos;m {personal.firstName}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/90">
+          <p className="mt-4 text-2xl font-semibold text-ink sm:text-3xl">
+            I build <Typewriter />
+          </p>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted sm:text-lg">
             {personal.resumeHeadline}
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#projects"
-              className="rounded-md bg-accent px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:bg-accent-bright"
+              className="rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-bright"
             >
-              View work
+              View My Work
             </a>
             <a
               href="#contact"
-              className="rounded-md border-2 border-ink/40 bg-surface px-5 py-3 text-sm font-semibold text-ink backdrop-blur-sm transition-colors hover:border-accent hover:text-accent"
+              className="rounded-full border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
             >
-              Contact
+              Get in Touch
             </a>
           </div>
-          <p className="mt-8 text-sm font-medium text-ink/75">{personal.location}</p>
+        </motion.div>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="relative mx-auto w-full max-w-[380px]"
+        >
+          <div className="absolute inset-6 rounded-full bg-accent/25 blur-3xl" />
+          <div className="relative aspect-square overflow-hidden rounded-full border border-line bg-card">
+            <Image
+              src={personal.portrait}
+              alt={personal.name}
+              fill
+              priority
+              className="object-cover object-[center_15%]"
+              sizes="380px"
+            />
+          </div>
+          {floatingTechs.map((tech) => (
+            <span
+              key={tech.label}
+              className="pill absolute z-10 flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-ink shadow-lg"
+              style={{ left: tech.x, top: tech.y }}
+            >
+              <TechIcon name={tech.label} />
+              {tech.label}
+            </span>
+          ))}
         </motion.div>
       </div>
+      <a
+        href="#about"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-xs font-semibold uppercase tracking-[0.2em] text-ink-muted"
+      >
+        Scroll down
+      </a>
     </section>
   );
 }
